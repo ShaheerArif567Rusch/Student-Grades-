@@ -1,44 +1,175 @@
-// Student Grades 
-// Menu 
-// 1 - Display All Grades 
-// 2 - Display Honours 
-// 3 - Stats 
-// 4 = Randomize Grades 
-// 5 - Exits 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
+namespace AssignmentMenu
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+                      
+            MainMenu();
+            
+        }
+        
+        static void MainMenu()
+        {
 
-// Display All Grades 
-// Create an empty list of grades, get a random number in a range between 0 and 100, and loop through it 35 times 
-// empty list 
-var grades = new List<int>(); 
-Random rnd = new Random(); 
-for (int i = 0; i < 35; i++) {
-    grades.Add(rnd.Next(0, 100)); 
-}
+            Random rnd = new Random();
+            
+            int[] StudentGrades = new int[35];
 
-// 1 - Display all Grades
-Console.WriteLine("ALL GRADES");
-for (int i = 0; i < grades.Count; i++) {
-    Console.WriteLine(grades[i]); 
-}
+            for (int i = 0; i < StudentGrades.Length; i++)
+            {
+                StudentGrades[i] = rnd.Next(1,101);             
+            }
+            bool stopProg = true;
 
-// 2 - Display all Honors 
-Console.WriteLine("ALL HONOURS");
-for (int i = 0; i < grades.Count; i++) {
-    if (grades[i] > 80) {
-        Console.WriteLine(grades[i]);  
+            while (stopProg) 
+            {
+                    Console.Clear();
+                    Console.WriteLine("MAIN MENU");
+                    Console.WriteLine("---------");
+                    Console.WriteLine("1. Display All Grades");
+                    Console.WriteLine("2. Display Honours");
+                    Console.WriteLine("3. Stats");
+                    Console.WriteLine("4. Randomize Grades");
+                    Console.WriteLine("5. Exit");
+
+                    
+                    string optionValue="";
+                    
+                    Console.WriteLine("");
+                    Console.WriteLine("Select your option from 1, 2, 3, 4, or 5.");
+                    optionValue= Console.ReadLine(); 
+                    
+                    switch (optionValue)
+                    {
+                        case "1":
+
+                            Console.WriteLine("");
+                            Console.WriteLine("Displaying ALL GRADES");
+                            Console.WriteLine("---------------------");
+
+                            foreach (var number in StudentGrades)
+                            {
+                                Console.WriteLine("" + number +"%");    
+                            }
+                            Console.WriteLine("");
+                            
+                            Console.WriteLine("Press Enter key to continue.");
+                            Console.ReadLine(); 
+                            break;
+
+                        case "2":
+                            
+                            Console.WriteLine("");
+                            Console.WriteLine("Display Honours!");
+                            Console.WriteLine("----------------");
+                            Console.WriteLine("Honours Greator than 80%");
+
+                            int numOfHonours = 0;
+
+                            foreach (var number in StudentGrades)
+                            {
+                                if (number > 80)
+                                {
+                                    Console.WriteLine(number +"%");
+                                    numOfHonours ++;
+                                }
+                            }
+
+                            Console.WriteLine("");
+                            Console.WriteLine("Number of Honours: " + numOfHonours);
+                            Console.WriteLine("");
+                            Console.WriteLine("Press Enter key to continue.");
+                            Console.ReadLine(); 
+                            break;
+
+                        case "3":
+                            
+                            int MaxVal = StudentGrades[0];
+                            int MinVal = StudentGrades[0];
+                            int AvgVal = 0;
+
+                            foreach (var number in StudentGrades)
+                            {
+                                if (number > MaxVal)
+                                {
+                                    MaxVal = number;
+                                }
+                                if (number < MinVal)
+                                {
+                                    MinVal = number;
+                                }
+                                AvgVal = AvgVal + number;
+                            }
+
+                            Console.WriteLine("");
+                            Console.WriteLine("STATS");
+                            Console.WriteLine("-----");                            
+                            Console.WriteLine("Highest Grade : " + MaxVal + "%");
+                            Console.WriteLine("Lowest Grade  : " + MinVal + "%");
+                            Console.WriteLine("Average Grade : " + AvgVal / StudentGrades.Length + "%" );
+                            Console.WriteLine("");
+
+                            Console.WriteLine("Press Enter key to continue.");
+                            Console.ReadLine(); 
+                            break;
+
+                        case "4":
+
+                            Console.WriteLine("");
+                            Console.WriteLine("Assign new Randomize Grades");
+                            Console.WriteLine("---------------------------");
+                            Console.WriteLine("");
+                            Console.WriteLine("Assigning new Randomize Grades.....");
+
+                            for (int i = 0; i < StudentGrades.Length; i++)
+                            {
+                                StudentGrades[i] = rnd.Next(1,101);
+                            
+                            }
+
+                            foreach (var number in StudentGrades)
+                            {
+                                Console.WriteLine("" + number +"%");    
+                            }
+                            
+                            Console.WriteLine("");
+
+                            Console.WriteLine("");
+                            Console.WriteLine("Confirmation : GRADES HAVE BEEN RANDOMIZED.");
+                            Console.WriteLine("");
+                            Console.WriteLine("Press Enter key to continue.");
+                            Console.ReadLine(); 
+
+                            break;
+
+                        case "5":
+
+                            Console.WriteLine("");
+                            Console.WriteLine("Exiting the program");
+                            Console.WriteLine("Press Enter key to continue.");
+                            Console.ReadLine(); 
+                            stopProg = false;
+                            break;
+
+                        default:
+
+                            Console.WriteLine("Not a valid input, try again with selecting you option from 1, 2, 3, 4, or 5.");
+                            Console.WriteLine("Press Enter key to continue.");
+                            Console.ReadLine();                         
+                            break;
+                        
+                    }
+            }
+
+            Console.Clear();
+
+        }       
     }
 }
-// 3 - Stats 
-Console.WriteLine("Stats: Highest Grade, Lowest Grade, and Average Grade"); 
-    Console.WriteLine("Max: " + grades.Max()); 
-    Console.WriteLine("Min: " + grades.Min()); 
-    Console.WriteLine("Average: " + grades.Average()); 
-// 4 - Randomize Grades 
-Console.WriteLine("Assign a each student a random grade in a range between 0 - 100"); 
-for (int i = 0; i < 35; i++) {
-    Console.WriteLine(rnd.Next(0, 100)); 
-}
-// 5 - Exit
-Console.WriteLine("Goodbye");
 
